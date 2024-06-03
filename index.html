@@ -123,11 +123,14 @@
                     <div class="card-header  text-white" style="background-color: #050C9C;">
                         New Customer
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="height: 600px;">
                         <form class="form-control-sm">
                             <div class="mb-3">
                                 <label for="txtCusId" class="form-label">Customer ID:</label>
+                                <button id="btnClearCustomer" class="btn btn-outline-secondary btn-sm" type="button">
+                                    <i class="lni lni-brush"></i>  </button>
                                 <input type="text" class="form-control form-control-sm" id="txtCusId">
+                               
                             </div>
                             <div class="mb-3">
                                 <label for="txtCusName" class="form-label">Customer Name:</label>
@@ -145,11 +148,14 @@
                                 <button id="btnSaveCustomer" type="button" class="btn btn-outline-success btn-sm">Save</button>
                                 <button id="btnUpdateCustomer" class="btn btn-outline-primary btn-sm" type="button">Update</button>
                                 <button id="btnDeleteCustomer" class="btn btn-outline-danger btn-sm" type="button">Delete</button>
-                                <button id="btnClearCustomer" class="btn btn-outline-secondary btn-sm" type="button">Clear</button>
+                                 
+                                
                             </div>
+                             
                         </form>
                     </div>
                 </div>
+               
             </div>
             <div class="col-sm-12 col-md-12 col-lg col-xl col-xxl">
                 <div class="card mb-4 shadow-lg">

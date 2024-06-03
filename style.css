@@ -174,14 +174,37 @@ h1 {
     padding-right: 5px;
     
   }
-  .btn-group #btnSaveCustomer:hover {  /* Target hover effect for #btnSaveCustomer */
-    background-color: #2e8b57;  /* Adjust hover background color */
-     width: 130px;
-     height: 50px;
-  }
+  
   .btn-group{
-    gap: 10px;
+    gap: 20px;
     
+  }
+  .btn-group #btnUpdateCustomer{
+    background-color: #FFBF00; 
+    color:white;
+    width: 100px;
+    height: 40px;
+    padding-right: 5px;
+
+  }
+
+  .btn-group #btnDeleteCustomer{
+    background-color: #FF0000; 
+    color:white;
+    width: 100px;
+    height: 40px;
+    padding-right: 5px;
+
+  }
+    #btnClearCustomer{
+    background-color: #D0D4CA; 
+    color:white;
+    width: 50px;
+    height: 30px;
+    padding-right: 5px;
+     margin-top: 10px;
+     margin-left: 30px;
+     margin-bottom: 20px;
   }
   
   
