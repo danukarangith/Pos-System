@@ -41,7 +41,7 @@ body {
     min-width: 70px;
     z-index: 1000;
     transition: all .25s ease-in-out;
-    background-color: #0e2238;
+    background-color: #050C9C;
     display: flex;
     flex-direction: column;
 }
@@ -163,6 +163,7 @@ h1 {
     from { transform: translateY(100%) rotateX(0) scale(1); opacity: 0; }  /* Start from bottom */
     to { transform: translateY(0) rotateX(0) scale(1); opacity: 1; }   /* Move to final position */
   }
+  
   
   
   
