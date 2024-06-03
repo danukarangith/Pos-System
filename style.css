@@ -148,3 +148,23 @@ a.sidebar-link:hover {
     transform: rotate(45deg);
     transition: all .2s ease-out;
 }
+
+
+
+/* text */
+h1 {
+    animation: entrance 1s ease-in-out;  /* Animation name, duration, timing function */
+    font-size: 3rem;
+    margin-left: 30%;
+    color:#686D76
+     
+  }
+  
+  
+  @keyframes entrance {
+    from { transform: translateY(-50px) rotateX(-30deg) scale(0.8); opacity: 0; }
+    to { transform: translateY(0) rotateX(0) scale(1); opacity: 1; }
+  }
+  
+  
+  
