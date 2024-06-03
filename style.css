@@ -153,17 +153,15 @@ a.sidebar-link:hover {
 
 /* text */
 h1 {
-    animation: entrance 1s ease-in-out;  /* Animation name, duration, timing function */
+    animation: entrance 1s ease-in-out;
     font-size: 3rem;
-    margin-left: 30%;
-    color:#686D76
-     
+    margin-left: 35%;
+    color: #686D76;
   }
   
-  
   @keyframes entrance {
-    from { transform: translateY(-50px) rotateX(-30deg) scale(0.8); opacity: 0; }
-    to { transform: translateY(0) rotateX(0) scale(1); opacity: 1; }
+    from { transform: translateY(100%) rotateX(0) scale(1); opacity: 0; }  /* Start from bottom */
+    to { transform: translateY(0) rotateX(0) scale(1); opacity: 1; }   /* Move to final position */
   }
   
   
