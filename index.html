@@ -228,6 +228,122 @@
 </section>
 
 
+<!--Items-->
+<section id="itemContent">
+    <div class="container-fluid mt-5 d-flex flex-column">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
+                <div class="card shadow-lg mb-3">
+                    <div class="card-header bg-success text-white">
+                        New Item
+                    </div>
+                    <div class="card-body">
+                        <form class="form-control-sm">
+                            <div class="mb-3">
+                                <label for="txtItemCode" class="form-label">Item Code:</label>
+                                <input type="text" class="form-control form-control-sm" id="txtItemCode">
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtItemName" class="form-label">Item Name:</label>
+                                <input type="text" class="form-control form-control-sm" id="txtItemName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtItemPrice" class="form-label">Item Price:</label>
+                                <input type="text" class="form-control form-control-sm" id="txtItemPrice">
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtItemQuantity" class="form-label">Item Quantity:</label>
+                                <input type="number" class="form-control form-control-sm" id="txtItemQuantity">
+                            </div>
+                            <div class="btn-group">
+                                <button id="btnSaveItem" type="button" class="btn btn-outline-success btn-sm">Submit</button>
+                                <button id="btnUpdateItem" type="button" class="btn btn-outline-primary btn-sm">Update</button>
+                                <button id="btnDeleteItem" type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                                <button id="btnClearItem" type="button" class="btn btn-outline-secondary btn-sm">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg col-xl col-xxl">
+                <div class="card mb-4 shadow-lg">
+                    <div class="card-header bg-success text-white">
+                        Search Item
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl">
+                                <form class="form-control-sm">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control form-control-sm" id="txtItemSearch" placeholder="Search here...">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2">
+                                            <button id="btnItemSearch" type="button" class="btn btn-outline-success btn-sm mb-2">Search</button>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-5 col-xl-5 col-xxl-3">
+                                            <select class="form-select form-select-sm" aria-label="Default select example" >
+                                                <option selected>Code</option>
+                                                <option value="1">Name</option>
+                                                <option value="2">Price</option>
+                                                <option value="3">Quantity</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl d-flex justify-content-center flex-column">
+                                <!-- Button trigger modal -->
+                                <button id="btnGetAllItem" type="button" class="btn btn-outline-success w-25 align-self-end" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                    Get All
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <table class="table table-bordered">
+                                                    <thead class="table-light">
+                                                    <tr>
+                                                        <th scope="col" class="bg-success text-white">Code</th>
+                                                        <th scope="col" class="bg-success text-white">Name</th>
+                                                        <th scope="col" class="bg-success text-white">Price</th>
+                                                        <th scope="col" class="bg-success text-white">Quantity</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="modalItemTable">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 350px; overflow-y: auto;">
+                    <table class="table table-hover table-bordered shadow-lg" style="height: 200px; overflow-y: auto;">
+                        <thead class="table-light">
+                        <tr>
+                            <th scope="col" class="bg-success text-white">Code</th>
+                            <th scope="col" class="bg-success text-white">Name</th>
+                            <th scope="col" class="bg-success text-white">Price</th>
+                            <th scope="col" class="bg-success text-white">Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tblItem">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
     <!-- javascript link -->
     <script src="script.js"></script>
 
