@@ -172,6 +172,7 @@ h1 {
     width: 100px;
     height: 40px;
     padding-right: 5px;
+    font-weight: bolder;
     
   }
   
@@ -185,7 +186,7 @@ h1 {
     width: 100px;
     height: 40px;
     padding-right: 5px;
-
+    font-weight: bolder;
   }
 
   .btn-group #btnDeleteCustomer{
@@ -194,6 +195,7 @@ h1 {
     width: 100px;
     height: 40px;
     padding-right: 5px;
+    font-weight: bolder;
 
   }
     #btnClearCustomer{
