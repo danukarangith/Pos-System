@@ -7,5 +7,5 @@ hamBurger.addEventListener("click", function () {
 function myFunction() {
   var element = document.body;
   element.dataset.bsTheme =
-    element.dataset.bsTheme == "light" ? "dark" : "light";
+    element.dataset.bsTheme == "dark" ? "light" : "dark";
 }
