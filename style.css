@@ -218,6 +218,22 @@ h1 {
     font-weight: bolder;
 
   }
+  #btnUpdateItem{
+    background-color: #FFBF00; 
+    color:white;
+    width: 100px;
+    height: 40px;
+    padding-right: 5px;
+    font-weight: bolder;
+  }
+  #btnDeleteItem{
+    background-color: #FF0000; 
+    color:white;
+    width: 100px;
+    height: 40px;
+    padding-right: 5px;
+    font-weight: bolder;
+  }
   
   
   
