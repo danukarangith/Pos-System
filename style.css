@@ -245,6 +245,17 @@ h1 {
      margin-bottom: 20px;
 
  }
+ .form-check-{
+    margin-top: -30px;
+    padding-left: 20px;
+ }
+ #sidebar:not(.expand) span {
+    display: none;
+}
+.btndark{
+    color: white;
+    
+}
   
   
   
