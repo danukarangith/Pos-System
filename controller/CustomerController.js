@@ -48,6 +48,29 @@ function saveCustomer() {
     }
 }
 
+$("#btnSearchCustomer").click(function(){
+
+    $("#tblCustomer").empty();
+    $("#modalTable").empty();
+
+    let id = $("#txtCustomerSearch").val();
+    console.log(id);
+
+    let customer = searchCustomer(id);
+    
+
+    let row = `<tr>
+    <td>${customer.id}</td>
+    <td>${customer.name}</td>
+    <td>${customer.address}</td>
+    <td>${customer.salary}</td>
+</tr>`;
+
+$("#tblCustomer").append(row);
+$("#modalTable").append(row);
+
+});
+
 // --------------Get all customer function---------------------------
 function getAllCustomer(){
     $("#tblCustomer").empty();
