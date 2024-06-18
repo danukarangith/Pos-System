@@ -258,7 +258,7 @@ h1 {
 }
 
 
-/* main page */
+/* main page css*/
 .box-area{
     width: 930px;
 }
@@ -266,7 +266,7 @@ h1 {
 .right-box{
     padding: 40px 30px 40px 40px;
 }
-/*------------ Custom Placeholder ------------*/
+/*------------ Custom Placeholder css ------------*/
 ::placeholder{
     font-size: 16px;
 }
