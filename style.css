@@ -262,11 +262,11 @@ h1 {
 .box-area{
     width: 930px;
 }
-/*------------ Right box css ------------*/
+/*------------ Right box  ------------*/
 .right-box{
     padding: 40px 30px 40px 40px;
 }
-/*------------ Custom Placeholder css ------------*/
+/*------------ Custom Placeholder  ------------*/
 ::placeholder{
     font-size: 16px;
 }
