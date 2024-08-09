@@ -1,177 +1,273 @@
-getAllCustomer();
+let tableBody = $("#body");
 
-// --------------Save btn event---------------------------
-$("#btnSaveCustomer").click(function (){
-    if (checkAllCustomer()){
-        saveCustomer();
-    }else {
-        alert("Something went wrong!");
-    }
+// save the customer information
+$('#save-customer').click(function () {
+    let id = $("#customer-gmail").val();
+
+    isIdExists(id, function (exists) {
+        if (exists) {
+            clearCustomerInputFields();
+            alert("ID already exists. Please choose a different ID.");
+        } else {
+            // Continue with your existing code for saving the customer
+            let name = $("#customer-name").val();
+            let address = $("#customer-address").val();
+            let salary = $("#customer-tp").val();
+
+            const customerObj = {
+                id: id,
+                name: name,
+                address: address,
+                salary: salary
+            };
+
+            const jsonObj = JSON.stringify(customerObj);
+
+            $.ajax({
+                url: "http://localhost:8080/app/customers",
+                method: "POST",
+                data: jsonObj,
+                contentType: "application/json",
+                success: function (resp, textStatus, jqxhr) {
+                    console.log("success: ", resp);
+                    console.log("success: ", textStatus);
+                    console.log("success: ", jqxhr);
+
+                    getAll();
+                },
+                error: function (jqxhr, textStatus, error) {
+                    console.log("error: ", jqxhr);
+                    console.log("error: ", textStatus);
+                    console.log("error: ", error);
+                }
+            });
+
+           
+            clearCustomerInputFields();
+        }
+    });
 });
 
-// --------------Get all btn event---------------------------
-$("#getAll").click(function (){
-    getAllCustomer();
-})
-
-// --------------Search customer function---------------------------
-function searchCustomer(customerId) {
-    return customersDB.find(function (customer){
-        return customer.id == customerId;
+// check if customer exists
+function isIdExists(id, callback) {
+    $.ajax({
+        url: "http://localhost:8080/app/customers",
+        method: "GET",
+        success: function (resp) {
+            // ID exists
+                for (const customer of resp) {
+                    if(customer.id == id) {
+                        callback(true);
+                        return;
+                    }
+                }
+                callback(false);
+        },
+        error: function (jqxhr, textStatus, error) {
+            // ID does not exist
+                callback(false);
+                console.log("Error checking ID existence: ", jqxhr, textStatus, error);
+        }
     });
 }
 
-// --------------Save Customer function---------------------------
-function saveCustomer() {
-    let customerId = $("#txtCusId").val();
-    // check customer if exists or not
-    if(searchCustomer(customerId.trim()) == undefined){
-        let customerName = $("#txtCusName").val();
-        let customerAddress = $("#txtCusAddress").val();
-        let customerSalary = $("#txtCusSalary").val();
+//update the customer information
+$('#updateCustomer').on('click', function () {
+    
+    let idval = $(`#upCID`).val();
+    isIdExists(idval, function (exists) {
+        if (exists) {
+           // Continue with your existing code for updating the customer
+           updateCustomer();
+        } else {
+            clearCustomerInputFields();
+            alert("ID doesnot exists. Please choose a existing ID.");
+        }
+    });
+});
 
-        let newCustomer = Object.assign({}, CustomerModel);
+function updateCustomer() {
+    let id = $(`#upCID`).val();
+    let name = $(`#upCName`).val();
+    let address = $(`#upCAddress`).val();
+    let salary = $(`#upCTp`).val();
 
-        newCustomer.id = customerId;
-        newCustomer.name = customerName;
-        newCustomer.address = customerAddress;
-        newCustomer.salary = customerSalary;
+    const customerupdateObj = {
+                id:id,
+                name:name,
+                address:address,
+                salary:salary
+    };
+        
+    const jsonObjupdate = JSON.stringify(customerupdateObj);
+        
+            $.ajax({
+                url: "http://localhost:8080/app/customers",
+                method: "PUT",
+                data: jsonObjupdate,
+                contentType: "application/json",
+                success: function (resp, textStatus, jqxhr) {
+                    console.log("success: ", resp);
+                    console.log("success: ", textStatus);
+                    console.log("success: ", jqxhr);
+                    getAll();
+                },
+                error: function (jqxhr, textStatus, error) {
+                    console.log("error: ", jqxhr);
+                    console.log("error: ", textStatus);
+                    console.log("error: ", error);
+                }
+            })
+            clearUpdateFiald();
+}
 
-        customersDB.push(newCustomer);
-        clearCustomerInputFields();
-        getAllCustomer();
-        alert("Customer added!");
-        loadCustomerIds();
-    }else{
-        alert("Customer exists!")
-        clearCustomerInputFields();
+//get all customers
+$(`#getAllCustomer`).click(function () {
+    getAll();
+});
+
+function getAll() {
+
+    $(`#body`).empty();
+
+    $.ajax({
+        url : "http://localhost:8080/app/customers",
+        method : "GET",
+        success : function (resp) {
+            console.log("Success: ", resp);
+            for (const customer of resp) {
+                console.log(customer.id);
+                console.log(customer.name);
+                console.log(customer.address);
+                console.log(customer.salary);
+
+                $(`#body`).append(`<tr>
+                                <td>${customer.id}</td>
+                                <td>${customer.name}</td>
+                                <td>${customer.address}</td>
+                                <td>${customer.salary}</td>
+                                <td><button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal2">
+                                    Edit
+                                </button>
+                                <button class="btn btn-danger me-3 btn-sm delete">Delete</button></td>
+                   
+                             </tr>`);
+                setEvent();
+            }
+
+        },
+        error : function (error) {
+            console.log("error: ", error);
+        }
+    })
+
+    
+}
+
+let eventsBound = false;
+
+//Bind EDIT And Delete events
+function setEvent() {
+    if (!eventsBound) {
+        $('#tblCustomer').on('click', 'tr', function () {
+            var $row = $(this).closest("tr"),
+                $tds = $row.find("td:nth-child(1)"),
+                $ts = $row.find("td:nth-child(2)"),
+                $tt = $row.find("td:nth-child(3)"),
+                $tf = $row.find("td:nth-child(4)");
+
+            $(`#upCID`).val($tds.text());
+            $(`#upCName`).val($ts.text());
+            $(`#upCAddress`).val($tt.text());
+            $(`#upCTp`).val($tf.text());
+        });
+
+        $('#tblCustomer').on('click', '.delete', function (event) {
+            event.stopPropagation(); // Prevent click event from reaching tr elements
+
+            var $row = $(this).closest("tr"),
+                $tds = $row.find("td:nth-child(1)");
+
+            isIdExists($tds.text(), function (exists) {
+                if (exists) {
+                    deleteFunc($tds.text());
+                } else {
+                    alert("No such Customer..please check the ID");
+                }
+            });
+        });
+
+        eventsBound = true;
     }
 }
 
-$("#btnSearchCustomer").click(function(){
+setEvent();
 
-    $("#tblCustomer").empty();
-    $("#modalTable").empty();
+//Delete Customer
+function deleteFunc(id){
+    $.ajax({
+        url: "http://localhost:8080/app/customers?id=" + id,
+        method: "DELETE",
+        success: function (resp, textStatus, jqxhr) {
+            console.log("success: ", resp);
+            console.log("success: ", textStatus);
+            console.log("success: ", jqxhr);
+            getAll();
+        },
+        error: function (jqxhr, textStatus, error) {
+            console.log("error: ", jqxhr);
+            console.log("error: ", textStatus);
+            console.log("error: ", error);
+        }
+    })
+}       
 
-    let id = $("#txtCustomerSearch").val();
-    console.log(id);
+//search for customers
+$('#txtSearch').on('keyup',function (){
 
-    let customer = searchCustomer(id);
-    
+    let txtVal = $('#txtSearch').val();
 
-    let row = `<tr>
-    <td>${customer.id}</td>
-    <td>${customer.name}</td>
-    <td>${customer.address}</td>
-    <td>${customer.salary}</td>
-</tr>`;
+    if (txtVal === '') {
+        getAll();
+        return;
+    }
 
-$("#tblCustomer").append(row);
-$("#modalTable").append(row);
+    $(`#body`).empty();
+    const searchType = $("#cusSearch").val();
 
-});
+    $.ajax({
+        url: "http://localhost:8080/app/customers",
+        method: "GET",
+        success: function (resp) {
+            console.log("Success: ", resp);
 
-// --------------Get all customer function---------------------------
-function getAllCustomer(){
-    $("#tblCustomer").empty();
-    $("#modalTable").empty();
+            for (const customer of resp) {
+                const searchText = (searchType === "Customer Id") ? customer.id : customer.name;
 
-    for (let i=0; i<customersDB.length; i++){
-        let id = customersDB[i].id;
-        let name = customersDB[i].name;
-        let address = customersDB[i].address;
-        let salary = customersDB[i].salary;
-
-        let row =  `<tr>
-                        <td>${id}</td>
-                        <td>${name}</td>
-                        <td>${address}</td>
-                        <td>${salary}</td>
+                if (searchText.includes($("#txtSearch").val())) {
+                    const customerRow = `<tr>
+                        <td>${customer.id}</td>
+                        <td>${customer.name}</td>
+                        <td>${customer.address}</td>
+                        <td>${customer.salary}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal2">Edit
+                            </button>
+                            <button class="btn btn-danger me-3 btn-sm delete">Delete</button>
+                        </td>
                     </tr>`;
 
-        $("#tblCustomer").append(row);
-        $("#modalTable").append(row);
-
-        bindTableRowEventsCustomer();
-    }
-}
-
-// --------------Bind row to fields function---------------------------
-function bindTableRowEventsCustomer() {
-    $("#tblCustomer>tr").click(function (){
-        let id = $(this).children().eq(0).text();
-        let name = $(this).children().eq(1).text();
-        let address = $(this).children().eq(2).text();
-        let salary = $(this).children().eq(3).text();
-
-        $("#txtCusId").val(id);
-        $("#txtCusName").val(name);
-        $("#txtCusAddress").val(address);
-        $("#txtCusSalary").val(salary);
-
-        $("#btnDeleteCustomer").prop("disabled", false);
+                    $("#tblCustomer > tbody").append($(`#body`).append(customerRow));
+                    setEvent();
+                }
+            }
+        },
+        error: function (error) {
+            console.log("error: ", error);
+        }
     });
-}
-
-// --------------Delete btn event---------------------------
-$("#btnDeleteCustomer").click(function (){
-    let id = $("#txtCusId").val();
-
-    let confirmation = confirm("Are you want to delete "+id+" ?");
-    if (confirmation){
-        let response = deleteCustomer(id);
-        if (response){
-            clearCustomerInputFields();
-            getAllCustomer();
-            alert("Customer deleted!.");
-        }else {
-            alert("Customer not deleted!.")
-        }
-    }
 });
 
-// --------------Delete customer function---------------------------
-function deleteCustomer(id) {
-    for (let i = 0; i < customersDB.length; i++){
-        if (customersDB[i].id == id){
-            customersDB.splice(i,1);
-            return true;
-        }
-    }
-    return false;
-}
-
-// --------------Update btn event---------------------------
-$("#btnUpdateCustomer").click(function (){
-   let id = $("#txtCusId").val();
-   updateCustomer(id);
-   clearCustomerInputFields();
-});
-
-// --------------Update Customer function---------------------------
-function updateCustomer(id) {
-    if(searchCustomer(id) == undefined){
-        alert("No such customer. Please check the ID!");
-    }else{
-        let confirmation = confirm("Do you really want to update this customer.?");
-        if (confirmation){
-            let customer = searchCustomer(id);
-
-            let name = $("#txtCusName").val();
-            let address = $("#txtCusAddress").val();
-            let salary = $("#txtCusSalary").val();
-
-            customer.name = name;
-            customer.address = address;
-            customer.salary = salary;
-
-            getAllCustomer();
-            alert("Customer updated!");
-        }
-    }
-}
-
-// --------------Clear btn event---------------------------
-$("#btnClearCustomer").click(function (){
-    clearCustomerInputFields();
-});
+getAll();
